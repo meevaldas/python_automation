@@ -1,5 +1,7 @@
 import os
 import shutil
+import time
+
 import schedule
 import datetime
 
@@ -18,4 +20,8 @@ def copy_folder_to_directory(source, destination):
         print(f"Folder already exists in the {dest_dir}")
 
 
-copy_folder_to_directory(source_dir, destination_dir)
+schedule.every().day.at("11:57").do(lambda: copy_folder_to_directory(source_dir, destination_dir))
+
+while True:
+    schedule.run_pending()
+    time.sleep(60)
